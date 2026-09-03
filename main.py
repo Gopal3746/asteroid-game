@@ -1,12 +1,14 @@
 from turtle import color
 
 import pygame
+import sys
 
 from asteroid import Asteroid
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from logger import log_state
 from player import Player
 from asteroidfield import AsteroidField
+from logger import log_event
 
 
 def main():
@@ -30,6 +32,11 @@ def main():
             if event.type == pygame.QUIT:
                 return
         updatable.update(dt)
+        for asteroid in asteroids:
+            if asteroid.collides_with(player):
+                log_event("player_hit")
+                print("Game over")
+                sys.exit()
         screen.fill("black")
         for obj in drawable:
             obj.draw(screen)
