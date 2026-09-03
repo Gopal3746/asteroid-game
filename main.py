@@ -43,6 +43,13 @@ def main():
         screen.fill("black")
         for obj in drawable:
             obj.draw(screen)
+        for asteroid in asteroids:
+            for shot in shots:
+                if asteroid.collides_with(shot):
+                    log_event("asteroid_shot")
+                    pygame.sprite.Sprite.kill(asteroid)
+
+
         pygame.display.flip()
         dt = clock.tick(60)/1000
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
